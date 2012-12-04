@@ -1,0 +1,26 @@
+--- origsrc/xombrero-1.4.0/cookie.c	2012-11-28 12:23:15.000000000 -0600
++++ src/xombrero-1.4.0/cookie.c	2012-12-03 21:36:56.361429500 -0600
+@@ -51,6 +51,12 @@ set_hook(void **hook, char *name)
+ 	if (hook == NULL)
+ 		errx(1, "set_hook");
+ 
++#ifdef __CYGWIN__
++	static void *RTLD_NEXT = NULL;
++	if (!RTLD_NEXT)
++		RTLD_NEXT = dlopen("cygsoup-2.4-1.dll", 0);
++#endif
++
+ 	if (*hook == NULL) {
+ 		*hook = dlsym(RTLD_NEXT, name);
+ 		if (*hook == NULL)
+--- origsrc/xombrero-1.4.0/xombrero.h	2012-11-28 12:23:15.000000000 -0600
++++ src/xombrero-1.4.0/xombrero.h	2012-12-03 14:57:10.194314500 -0600
+@@ -32,7 +32,7 @@
+ #include <inttypes.h>
+ 
+ #include <sys/types.h>
+-#if defined(__linux__)
++#if defined(__linux__) || defined(__CYGWIN__)
+ #include "linux/util.h"
+ #include "linux/tree.h"
+ #include <bsd/stdlib.h>

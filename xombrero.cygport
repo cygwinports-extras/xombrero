@@ -1,0 +1,35 @@
+NAME="xombrero"
+VERSION=1.4.0
+RELEASE=1
+CATEGORY="Web"
+SUMMARY="Minimalist web browser"
+DESCRIPTION="xombrero is a minimalist web browser with sophisticated security
+features designed-in, rather than through an add-on after-the-fact. In
+particular, it provides both persistent and per-session controls for scripts
+and cookies, making it easy to thwart tracking and scripting attacks. In
+additional to providing a familiar mouse-based interface like other web
+browsers, it offers a set of vi-like keyboard commands for users who prefer to
+keep their hands on their keyboard."
+HOMEPAGE="https://opensource.conformal.com/wiki/xombrero"
+SRC_URI="https://opensource.conformal.com/snapshots/${NAME}/${NAME}-${VERSION}.tgz"
+PATCH_URI="1.4.0-cygwin.patch  1.4.0-prefix-usr.patch"
+
+MAKEOPTS+=" PREFIX=/usr"
+
+src_compile() {
+	lndirs
+	cd ${B}/linux
+	cygmake
+}
+
+src_install() {
+	dodir /usr/share/applications
+	cd ${B}/linux
+	cyginstall
+	sed -i -e 's/^Icon=.*/Icon=xombrero/' ${D}/usr/share/applications/${NAME}.desktop
+	for i in 16 32 48 64 128
+	do
+		insinto /usr/share/icons/hicolor/${i}x${i}/apps
+		newins ${S}/xombreroicon${i}.png xombrero.png
+	done
+}

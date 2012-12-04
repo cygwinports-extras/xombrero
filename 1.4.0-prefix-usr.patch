@@ -1,0 +1,42 @@
+--- origsrc/xombrero-1.4.0/linux/Makefile	2012-11-28 12:23:15.000000000 -0600
++++ src/xombrero-1.4.0/linux/Makefile	2012-12-03 23:02:54.449653000 -0600
+@@ -18,7 +18,7 @@ LIBS+= libsoup-2.4 gthread-2.0 gnutls li
+ CFLAGS+= -O2 -Wall -ggdb3 -D_GNU_SOURCE -I. -I.. $(shell pkg-config --cflags $(LIBS)) $(JS_CF)
+ LDADD+= $(shell pkg-config --libs $(LIBS)) $(JS_LD) -ldl -lgcrypt -lX11
+ 
+-PREFIX?= /usr/local
++PREFIX?= /usr
+ BINDIR?= $(PREFIX)/bin
+ LIBDIR?= $(PREFIX)/lib
+ MANDIR?= $(PREFIX)/share/man
+--- origsrc/xombrero-1.4.0/xombrero.conf	2012-11-28 12:23:15.000000000 -0600
++++ src/xombrero-1.4.0/xombrero.conf	2012-12-03 22:10:16.176681000 -0600
+@@ -55,7 +55,7 @@
+ # enable_js_autorun	= 0
+ # auto_load_images	= 0
+ # enable_localstorage	= 0
+-# userstyle		= /usr/local/share/xombrero/style.css
++# userstyle		= /usr/share/xombrero/style.css
+ # userstyle_global	= 1
+ # enable_favicon_entry	= 0
+ # enable_favicon_tabs	= 1
+@@ -186,7 +186,7 @@
+ ## ADVANCED SETTINGS
+ ##
+ 
+-# resource_dir		= /usr/local/share/xombrero/
++# resource_dir		= /usr/share/xombrero/
+ # refresh_interval	= 10
+ # url_regex		= ^[[:blank:]]*[^[:blank:]]*([[:alnum:]-]+\.)+[[:alnum:]-][^[:blank:]]*[[:blank:]]*$
+ # gnutls_priority_string = NORMAL:%COMPAT
+--- origsrc/xombrero-1.4.0/xombrero.h	2012-12-03 22:04:24.783372700 -0600
++++ src/xombrero-1.4.0/xombrero.h	2012-12-03 22:09:57.546655300 -0600
+@@ -688,7 +688,7 @@ int		command_mode(struct tab *, struct k
+ #define XT_DS_ALLOW_INSECURE_CONTENT	(TRUE)
+ #define XT_DS_ALLOW_INSECURE_SCRIPTS	(TRUE)
+ #define XT_DS_WARN_CERT_CHANGES	(0)
+-#define XT_DS_RESOURCE_DIR	("/usr/local/share/xombrero")
++#define XT_DS_RESOURCE_DIR	("/usr/share/xombrero")
+ #define XT_DS_DO_NOT_TRACK	(0)
+ #define XT_DS_PRELOAD_STRICT_TRANSPORT	(1)
+ #define XT_DS_GNUTLS_PRIORITY_STRING	(NULL)
